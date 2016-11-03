@@ -1,0 +1,22 @@
+{
+  "name": "babel-preset-to-plugins-server",
+  "version": "1.0.0",
+  "description": "",
+  "license": "WTFPL",
+  "author": "Gabriel Montes <gabriel@utoctadel.com.ar>",
+  "scripts": {
+    "deploy": "now",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "config": "^1.24.0",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "request": "^2.77.0",
+    "request-promise": "^4.1.1"
+  },
+  "devDependencies": {
+    "now": "^0.28.0"
+  },
+  "private": true
+}

@@ -1,0 +1,12 @@
+{
+  "name": "babel-preset-to-plugins",
+  "version": "1.0.0",
+  "description": "",
+  "license": "WTFPL",
+  "author": "Gabriel Montes <gabriel@utoctadel.com.ar>",
+  "dependencies": {},
+  "dependencies": {
+    "eslint": "^3.9.1"
+  }
+  "private": true
+}
