@@ -1,59 +1,52 @@
-/* globals $ */
+/* globals $, notReactDOM */
 
 function dedup(list) {
   return list.reduce((acc, item) => acc.includes(item) ? acc : acc.concat(item), [])
 }
 
-function messageComponent(selector) {
-  return {
-    render: function (state = {}) {
-      $(selector).html(`
-        <div>
-          ${state.text}
-        </div>
-      `)
-    }
+function map(array, fn) {
+  return array.map(fn).join('')
+}
+
+function messageComponent({ text }) {
+  return `
+    <div>
+      ${text}
+    </div>
+  `
+}
+
+function tableComponent({ data }) {
+  const presets = Object.keys(data)
+  const plugins = dedup([].concat(...presets.map(key => data[key]))).sort()
+  return `
+    <table class="table">
+      <tr class="table-header">
+        <th></th>
+        ${map(presets, preset => `<th class="preset-head">${preset.substr(13)}</th>`)}
+      </tr>
+      ${map(plugins, plugin => `
+        <tr>
+          <td class="plugin-title">${plugin.substr(13)}</td>
+          ${map(presets, preset => `<td class="plugin-mark">${data[preset].includes(plugin) ? 'X' : ''}</td>`)}
+        </tr>
+      `)}
+    </table>
+  `
+}
+
+function contentComponent({ loading, data }) {
+  if (loading) {
+    const text = 'Generating table from npm registry data...'
+    return messageComponent({ text })
+  }
+  if (data) {
+    return tableComponent({ data })
   }
 }
 
-function tableComponent(selector) {
-  return {
-    render: function (state = {}) {
-      const presets = Object.keys(state)
-      const plugins = dedup([].concat(...presets.map(key => state[key]))).sort()
-      $(selector).html(`
-        <table class="table">
-          <tr class="table-header">
-            <th></th>
-            ${presets.map(preset => `<th class="preset-head">${preset.substr(13)}</th>`).join('')}
-          </tr>
-          ${plugins.map(plugin => `
-            <tr>
-              <td class="plugin-title">${plugin.substr(13)}</td>
-              ${presets.map(preset => `<td class="plugin-mark">${state[preset].includes(plugin) ? 'X' : ''}</td>`).join('')}
-            </tr>
-          `).join('')}
-        </table>
-      `)
-    }
-  }
-}
-
-function contentComponent(selector) {
-  return {
-    render: function (state = {}) {
-      if (state.loading) {
-        messageComponent(selector).render({
-          text: 'Generating table from npm registry data...'
-        })
-        return
-      }
-      if (state.data) {
-        tableComponent(selector).render(state.data)
-        return
-      }
-    }
-  }
+function render(state) {
+  notReactDOM.render(() => contentComponent(state), document.getElementById('content'))
 }
 
 function getPlugins() {
@@ -69,12 +62,13 @@ function getPlugins() {
       'babel-preset-stage-0'
     ]
     const apiServer = 'https://babel-preset-to-plugins-server-gizonfkwzx.now.sh'
-    $.getJSON(`${apiServer}/parse?presets=${presets.join(',')}`, data => resolve({ data }))
+    $.getJSON(`${apiServer}/parse?presets=${presets.join(',')}`, resolve)
   })
 }
 
 $(function () {
-  const render = contentComponent('#content').render
   render({ loading: true })
-  getPlugins().then(render)
+  getPlugins().then(function (data) {
+    render({ data })
+  })
 })
