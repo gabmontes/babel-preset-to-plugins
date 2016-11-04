@@ -22,15 +22,15 @@ function tableComponent(selector) {
       const presets = Object.keys(state)
       const plugins = dedup([].concat(...presets.map(key => state[key]))).sort()
       $(selector).html(`
-        <table>
-          <tr>
+        <table class="table">
+          <tr class="table-header">
             <th></th>
-            ${presets.map(preset => `<th>${preset}</th>`).join('')}
+            ${presets.map(preset => `<th class="preset-head">${preset.substr(13)}</th>`).join('')}
           </tr>
           ${plugins.map(plugin => `
             <tr>
-              <td>${plugin}</td>
-              ${presets.map(preset => `<td>${state[preset].includes(plugin) ? 'X' : ''}</td>`).join('')}
+              <td class="plugin-title">${plugin.substr(13)}</td>
+              ${presets.map(preset => `<td class="plugin-mark">${state[preset].includes(plugin) ? 'X' : ''}</td>`).join('')}
             </tr>
           `).join('')}
         </table>

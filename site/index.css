@@ -1,0 +1,58 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+h1 {
+  background-color: #323330;
+  color: #f5da55;
+  font-size: 2.5em;
+  margin: 0;
+  padding: 1em 0.5em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th, td {
+  padding: 0.25em;
+}
+
+#content {
+  padding: 1em;
+}
+
+.table {
+  max-width: 900px;
+  width: 100%;
+}
+
+.table-header {
+  background-color: #f5da55;
+  border-bottom: 2px solid black;
+}
+
+.preset-head {
+}
+
+.plugin-title {
+  border-bottom: 1px solid #ddd;
+  border-left: 0px;
+  border-right: 1px solid #aaa;
+  border-top: 1px solid #ddd;
+}
+
+.plugin-mark {
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.footer {
+  background: #eee;
+  border-top: 1px solid #e2e2e2;
+  font-size: 0.8em;
+  padding: 2em;
+  text-align: center;
+}
