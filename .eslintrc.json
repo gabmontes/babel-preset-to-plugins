@@ -11,6 +11,8 @@
     "no-console": "warn",
     "no-extra-parens": "warn",
     "object-curly-spacing": ["warn", "always"],
+    "prefer-template": "warn",
+    "quotes": ["warn", "single"],
     "semi": ["warn", "never"],
     "space-before-function-paren": ["warn", {
       "anonymous": "always",
