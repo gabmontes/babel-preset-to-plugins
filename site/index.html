@@ -14,6 +14,14 @@
       -
       Take a look at the <a href="https://github.com/gabmontes/babel-preset-to-plugins">source code</a>
     </div>
+    <script type="text/javascript">
+      // detect if browser is capable of renderign this page...
+      try {
+        new Function('return (...args) => ([...args])')
+      } catch (err) {
+        document.getElementById('content').innerHTML = 'Sorry! Your browser is too old...'
+      }
+    </script>
     <script src="libs/not-jquery.js"></script>
     <script src="libs/not-react.js"></script>
     <script src="index.js"></script>
